@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN
+
 const EBIRD_API_KEY = import.meta.env.VITE_EBIRD_KEY
 const LAT = 51.1822
 const LNG = -115.5971
@@ -64,8 +65,11 @@ function App() {
         groups[key].push(obs)
       })
 
-      // one invisible marker per observation for selection
+      // one marker per observation
       observations.forEach(obs => {
+        const key = `${obs.lat},${obs.lng}`
+        const group = groups[key]
+
         const el = document.createElement('div')
         el.style.cssText = `
           width: 14px; height: 14px; border-radius: 50%;
@@ -74,13 +78,30 @@ function App() {
           transition: background 0.15s, transform 0.15s;
         `
 
-        const popup = new mapboxgl.Popup({ offset: 15 }).setHTML(`
-          <strong>${obs.comName}</strong><br/>
-          <em>${obs.sciName}</em><br/>
-          Count: ${obs.howMany ?? 'not recorded'}<br/>
-          Date: ${obs.obsDt}<br/>
-          Location: ${obs.locName}
-        `)
+        // build popup showing all species at this location
+        const speciesList = group.map(o => `
+          <div style="padding: 4px 0; border-bottom: 1px solid #eee;">
+            <strong>${o.comName}</strong><br/>
+            <span style="font-style:italic; font-size:0.85em; color:#666">${o.sciName}</span><br/>
+            <span style="font-size:0.85em">
+              ${o.howMany ? `${o.howMany} bird${o.howMany > 1 ? 's' : ''}` : 'Count not recorded'} · ${o.obsDt.split(' ')[0]}
+            </span>
+          </div>
+        `).join('')
+
+        const popupHTML = `
+          <div style="font-size:0.85rem; max-height:200px; overflow-y:auto; min-width:200px;">
+            <div style="font-weight:bold; margin-bottom:6px; color:#2c5f2e;">
+              📍 ${group[0].locName}
+            </div>
+            <div style="font-size:0.8em; color:#888; margin-bottom:6px;">
+              ${group.length} species observed here
+            </div>
+            ${speciesList}
+          </div>
+        `
+
+        const popup = new mapboxgl.Popup({ offset: 15 }).setHTML(popupHTML)
 
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat([obs.lng, obs.lat])
@@ -91,9 +112,9 @@ function App() {
         markersRef.current[obs._idx] = marker
       })
 
-      // one cluster badge per unique location with count > 1
+      // cluster badge per unique location with more than 1 obs
       Object.entries(groups).forEach(([key, group]) => {
-        if (group.size <= 1) return
+        if (group.length <= 1) return
         const [lat, lng] = key.split(',').map(Number)
 
         const el = document.createElement('div')
@@ -102,7 +123,6 @@ function App() {
           width: 18px; height: 18px; font-size: 10px; font-weight: bold;
           display: flex; align-items: center; justify-content: center;
           border: 1.5px solid white; pointer-events: none;
-          transform: translate(8px, -18px);
           box-shadow: 0 1px 3px rgba(0,0,0,0.4);
         `
         el.textContent = group.length
