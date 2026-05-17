@@ -35,7 +35,7 @@ function App() {
     const fetchObs = async () => {
       setLoading(true)
       const response = await fetch(
-        `/ebird/v2/data/obs/geo/recent?lat=${LAT}&lng=${LNG}&dist=5&back=${daysBack}`,
+        `/ebird?lat=${LAT}&lng=${LNG}&dist=5&back=${daysBack}`,
         { headers: { 'X-eBirdApiToken': EBIRD_API_KEY } }
       )
       const data = await response.json()
