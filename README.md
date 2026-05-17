@@ -43,4 +43,4 @@ Observation data is sourced from the eBird API, which returns the most recent ob
 
 ## Live Demo
 
-https://visionary-souffle-e217e6.netlify.app/
+[banff-bird-spotter.netlify.app](https://banff-bird-spotter.netlify.app/)
