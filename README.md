@@ -4,7 +4,7 @@ A web app for exploring recent bird observations around Vermilion Lakes and Banf
 
 ## About
 
-This app was built as a demo project to accompany my application for the Mobile Application Developer position at Birds Canada. I wanted to demonstrate my ability to learn and work with tools directly relevant to the role — specifically Mapbox and web APIs — while building something meaningful to me personally as someone who lives in Banff and works in conservation.
+This app was built as a demo project to accompany my application for the Mobile Application Developer position at Birds Canada. I wanted to demonstrate my ability to learn and work with tools directly relevant to the role — specifically Mapbox and web APIs — while building something meaningful to me personally as someone who lives in Banff and loves birds!
 
 The app pulls live observation data from the eBird API and displays it on an interactive Mapbox map, allowing users to explore recent bird sightings around Vermilion Lakes — one of the best birding spots in Banff National Park and somewhere I spend a lot of time.
 
