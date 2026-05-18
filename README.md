@@ -39,7 +39,7 @@ This project was built to demonstrate hands-on experience with several tools and
 
 ## Data Notes
 
-Observation data is sourced from the eBird API, which returns the most recent observation per species per location within the selected time range. This means the app reflects recent birding activity in the area rather than a complete observation log. For more granular biodiversity datasets, platforms like NatureCounts are better suited for research-grade data access — which is part of what makes the work Birds Canada does so valuable.
+Observation data is sourced from the eBird API, which returns the most recent observation per species per location within the selected time range. The app reflects recent birding activity in the area but does not reflect accurate locations of bird observations. In other words, it is not the most functional tool, but more of a fun demo!
 
 ## Live Demo
 
