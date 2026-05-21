@@ -23,7 +23,7 @@ I do not have a formal computer science background, but I am self-taught and bui
 
 - React + Vite
 - Mapbox GL JS
-- eBird API (Cornell Lab of Ornithology)
+- eBird API (Cornell Lab of Ornithology) - https://ebird.org/home 
 - Netlify (deployment + serverless functions)
 - Git + GitHub
 
